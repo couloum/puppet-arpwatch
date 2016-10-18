@@ -23,7 +23,7 @@ Install and configure arpwatch
 
 ## Usage
 
-All interaction with the arpwatch module is done through the main arpwatch class. You can simply set the options in `::ntp` to have full functionality of the module.
+All interaction with the arpwatch module is done through the main arpwatch class. You can simply set the options in `::arpwatch` to have full functionality of the module.
 
 ## Reference
 
