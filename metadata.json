@@ -17,6 +17,7 @@
           ]
       }
   ]
-  "dependencies": []
+  "dependencies": [],
+  "tags": ["arpwatch","network","monitoring"]
 }
 
