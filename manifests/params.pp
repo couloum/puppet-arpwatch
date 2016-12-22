@@ -8,7 +8,7 @@ class arpwatch::params {
     $interface = 'eth0'
     $config_file = '/etc/sysconfig/arpwatch'
     $config_template = 'arpwatch/conf.rhel.erb'
-    $service_user = $::os_maj_version ? {
+    $service_user = $::operatingsystemmajrelease ? {
         '5' => 'pcap',
         default => 'arpwatch',
       }
