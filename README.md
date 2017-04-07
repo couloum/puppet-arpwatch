@@ -57,6 +57,9 @@ Specifies the email address to send arpwatch alerts to. Valid options: string. D
 
 Specifies the interface to monitor for arp changes. Valid options: string containing an interface name. Default: eth0
 
+#### `opts`
+
+Specify additional options to pass to arpwatch at start. Valid options: string of command line options. Default: OS dependant
 #### `package_ensure`
 
 Tells Puppet whether the arpwatch package should be installed, and what version. Valid options: 'present', 'latest', or a specific version number. Default value: 'present'
@@ -83,16 +86,21 @@ Specifies which user account arpwatch should run under. Valid options: string. D
 
 #### `source_email`
 
-Specifies the source email address for arpwatch emails. Valid options: string. Default value: 'arpwatch@${::fqdn}'
+Specifies the source email address for arpwatch emails. Only works under RedHat family distributions. Valid options: string. Default value: 'arpwatch@${::fqdn}'
 
 ## Limitations
 
-arpwatch currently only supports RedHat based distributions. Pull requests are welcome to add support for other platforms.
+This module currently supports RedHat and Debian distributions. It has only been thoroughly tested under RedHat.
+Pull requests are welcome to add support for other platforms.
 
 ## Development
 
 Pull requests are welcome. Please make sure to properly document any additions or changes made to the module.
 
 ## Release Notes
+
+v0.2.0 - Add support for Debian
+
+v0.1.2 - Add spec tests and dependencies
 
 v0.1.0 - Initial release of arpwatch module

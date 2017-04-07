@@ -1,68 +1,34 @@
-# Class: arpwatch
-# ===========================
 #
 # Install and configure arpwatch
 #
-# Parameters
-# ----------
+# @example Basic installation and configuration of arpwatch
+#   include ::arpwatch
 #
-# * `config_file`
-# The confiugration file on the server to manage.
+# @example Install service and set it to send email alerts
+#   class { 'arpwatch':
+#     dest_email    => 'foo@bar.org',
+#     source_email  => 'arpwatch@baz.com',
+#   }
 #
-# * `config_template`
-# The template to use when generating the config file.
-#
-# * `dest_email`
-# The email address to send arpwatch alerts to.
-#
-# * `interface`
-# Which interface to watch for arp traffic
-#
-# * `package_ensure`
-# Ensure value passed to the package resource
-#
-# * `package_name`
-# Name of the package to manage
-#
-# * `service_enable`
-# Enable value, passed to the service resource
-#
-# * `service_ensure`
-# Ensure value, passed to the service resource
-#
-# * `service_name`
-# Name of the service to manage
-#
-# * `service_user`
-# Defines the user account that arpwatch will run under
-#
-# * `source_email`
-# Define the source email address for arpwatch alerts
-#
-# Examples
-# --------
-#
-# @example
-#    class { 'arpwatch':
-#      dest_email => 'foo@bar.org',
-#      source_email => 'arpwatch@baz.com',
-#    }
-#
-# Authors
-# -------
-#
-# Ryan DeShone <rfdeshon@gmail.com>
-#
-# Copyright
-# ---------
-#
-# Copyright 2016 Ryan DeShone, unless otherwise noted.
+# @param [String] config_file The configuration file on the server to manage.
+# @param [String] config_template The template to use when generating the config file
+# @param [String] dest_email The email address to send arpwatch alerts to.
+# @param [String] interface Which interface to watch for arp traffic
+# @param [String] opts Additional command line options to pass to arpwatch at start
+# @param [String] package_ensure Ensure value passed to the package resource
+# @param [String] package_name Name of the package to manage
+# @param [Boolean] service_enable Enable value, passed to the service resource
+# @param [String] service_ensure Ensure value, passed to the service resource
+# @param [String] service_name Name of the service to manage
+# @param [String] service_user Defines the user account that arpwatch will run under
+# @param [String] source_email Define the source email address for arpwatch alerts (RedHat only)
 #
 class arpwatch (
   $config_file = $arpwatch::params::config_file,
   $config_template = $arpwatch::params::config_template,
   $dest_email = '-',
   $interface = $arpwatch::params::interface,
+  $opts = $arpwatch::params::opts,
   $package_ensure = 'installed',
   $package_name = $arpwatch::params::package_name,
   $service_enable = true,
