@@ -41,11 +41,11 @@ All interaction with the arpwatch module is done through the main arpwatch class
 
 The following parameters are available in the `::arpwatch` class:
 
-####`config_file`
+#### `config_file`
 
 Specifies a file for arpwatch's configuration. Valid options: string containing an absolute path. Default value: '/etc/sysconfig/arpwatch'
 
-####`config_template`
+#### `config_template`
 
 Specifies a file to act as a ERB template for the config file. Valid options: string containing a path (absolute, or relative to the module path). Example value: 'arpwatch/conf.rhel.erb'
 
