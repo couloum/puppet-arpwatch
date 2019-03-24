@@ -1,17 +1,16 @@
 {
-  "name": "ardichoke-arpwatch",
-  "version": "0.2.1",
-  "author": "ardichoke",
+  "name": "couloum-arpwatch",
+  "version": "1.0.0-dev",
+  "author": "couloum",
   "summary": "Install and manage arpwatch",
   "license": "Apache-2.0",
-  "source": "https://github.com/ardichoke/puppet-arpwatch",
-  "project_page": "https://github.com/ardichoke/puppet-arpwatch",
-  "issues_url": "https://github.com/ardichoke/puppet-arpwatch/issues",
+  "source": "https://github.com/couloum/puppet-arpwatch",
+  "project_page": "https://github.com/couloum/puppet-arpwatch",
+  "issues_url": "https://github.com/couloum/puppet-arpwatch/issues",
   "operatingsystem_support": [
       {
           "operatingsystem": "RedHat",
           "operatingsystemrelease": [
-              "5",
               "6",
               "7"
           ]
@@ -23,9 +22,19 @@
               "8"
           ]
       }
+      {
+          "operatingsystem": "Ubuntu",
+          "operatingsystemrelease": [
+              "16.04",
+              "16.10",
+              "17.04",
+              "17.10",
+              "18.04"
+          ]
+      }
   ],
   "dependencies": [
-      { "name": "puppetlabs/stdlib", "version_requirement": ">=1.0.0 <5.0.0"}
+      { "name": "puppetlabs/stdlib", "version_requirement": ">=1.0.0 <6.0.0"}
   ],
   "tags": ["arpwatch","network","monitoring"]
 }
