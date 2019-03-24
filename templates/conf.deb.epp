@@ -1,0 +1,11 @@
+<%- |
+  String $interface,
+  String $service_user,
+  String $source_email,
+  String $dest_email,
+  Array  $opts,
+| -%>
+# THIS FILE MANAGED BY PUPPET
+# CHANGES WILL BE OVERWRITTEN
+ARGS="-i <%= $interface %> -m <%= $dest_email %> <%= $opts.join(' ') %>"
+RUNAS="<%= $service_user %>"

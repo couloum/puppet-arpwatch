@@ -1,0 +1,3 @@
+arpwatch::package_name:       arpwatch
+arpwatch::service_name:       arpwatch
+arpwatch::service_user:       arpwatch

@@ -1,0 +1,4 @@
+arpwatch::interface:        eth0
+arpwatch::config_file:      /etc/sysconfig/arpwatch
+aprwatch::config_template:  arpwatch/conf.rhel.epp
+arpwathch::opts:

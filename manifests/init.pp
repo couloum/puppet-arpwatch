@@ -10,60 +10,77 @@
 #     source_email  => 'arpwatch@baz.com',
 #   }
 #
-# @param [String] config_file The configuration file on the server to manage.
-# @param [String] config_template The template to use when generating the config file
-# @param [String] dest_email The email address to send arpwatch alerts to.
-# @param [String] interface Which interface to watch for arp traffic
-# @param [String] opts Additional command line options to pass to arpwatch at start
-# @param [String] package_ensure Ensure value passed to the package resource
-# @param [String] package_name Name of the package to manage
-# @param [Boolean] service_enable Enable value, passed to the service resource
-# @param [String] service_ensure Ensure value, passed to the service resource
-# @param [String] service_name Name of the service to manage
-# @param [String] service_user Defines the user account that arpwatch will run under
-# @param [String] source_email Define the source email address for arpwatch alerts (RedHat only)
+# @param config_file
+#   The configuration file on the server to manage.
+# @param config_template
+#  The template to use when generating the config file
+# @param dest_email
+#  The email address to send arpwatch alerts to.
+# @param interface
+#   Which interface to watch for arp traffic
+# @param opts
+#   Additional command line options to pass to arpwatch at start
+# @param package_ensure
+#   Ensure value passed to the package resource
+# @param package_name
+#   Name of the package to manage
+# @param service_enable
+#   Enable value, passed to the service resource
+# @param service_ensure
+#   Ensure value, passed to the service resource
+# @param service_name
+#   Name of the service to manage
+# @param service_user
+#   Defines the user account that arpwatch will run under
+# @param source_email
+#   Define the source email address for arpwatch alerts (RedHat only)
 #
 class arpwatch (
-  $config_file = $arpwatch::params::config_file,
-  $config_template = $arpwatch::params::config_template,
-  $dest_email = '-',
-  $interface = $arpwatch::params::interface,
-  $opts = $arpwatch::params::opts,
-  $package_ensure = 'installed',
-  $package_name = $arpwatch::params::package_name,
-  $service_enable = true,
-  $service_ensure = 'running',
-  $service_name = $arpwatch::params::service_name,
-  $service_user = $arpwatch::params::service_user,
-  $source_email = "arpwatch@${::fqdn}",
+  String  $package_name,
+  String  $service_name,
+  String  $config_file,
+  String  $config_template,
+  String  $interface,
+  Variant[String,Array]
+          $opts,
+  String  $service_user,
+  String  $dest_email                        = '-',
+  String  $package_ensure                    = 'installed',
+  Boolean $service_enable                    = true,
+  Enum['running', 'stopped']
+          $service_ensure                    = 'running',
+  String  $source_email                      = "arpwatch@${::fqdn}",
   ) inherits arpwatch::params {
-    validate_string($dest_email)
-    validate_string($package_name)
-    validate_string($service_user)
-    validate_string($service_name)
-    validate_string($interface)
     validate_absolute_path($config_file)
-    validate_string($package_ensure)
-    validate_string($source_email)
-    validate_bool($service_enable)
-    validate_string($service_ensure)
 
-    package {
-      $package_name:
+    if ($::facts['osfamily'] !~ /^(Debian|RedHat)$/) {
+      fail('Unsupported OS')
+    }
+
+    $_opts = any2array($opts)
+
+    $epp_params = {
+      interface    => $interface,
+      service_user => $service_user,
+      dest_email   => $dest_email,
+      source_email => $source_email,
+      opts         => $_opts,
+    }
+
+    package {$package_name:
       ensure => $package_ensure,
     }
-    file {
-      $config_file:
+    file {$config_file:
       ensure  => 'file',
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => template($config_template),
+      content => epp($config_template, $epp_params),
     }
-    service {
-      $service_name:
+    service {$service_name:
       ensure => $service_ensure,
       enable => $service_enable,
     }
+
     Package[$package_name]->File[$config_file]~>Service[$service_name]
 }

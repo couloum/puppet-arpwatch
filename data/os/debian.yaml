@@ -1,0 +1,7 @@
+arpwatch::interface:        eth0
+arpwatch::config_file:      /etc/default/arpwatch
+aprwatch::config_template:  arpwatch/conf.deb.epp
+aprwatch::service_user:     arpwatch
+arpwathch::opts:
+  - '-N'
+  - '-p' 
